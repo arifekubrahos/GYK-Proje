@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1090005720213",
+    "firebase_url": "https://gyk-proje.firebaseio.com",
+    "project_id": "gyk-proje",
+    "storage_bucket": "gyk-proje.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090005720213:android:d2d30b0c296630ae",
+        "android_client_info": {
+          "package_name": "com.example.arife.gyk_proje"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090005720213-q4j3s6484dqr7i60cfl8pkbkke3npbkl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.arife.gyk_proje",
+            "certificate_hash": "5ee63588ff980580d36b21ae8b753bb7237580da"
+          }
+        },
+        {
+          "client_id": "1090005720213-0uq8t0jhofm5lpsor9l6u2dtuh2jdlik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIOsdAKQ1wDzVSUEg9P1KjGgqSrj1QA9E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090005720213-0uq8t0jhofm5lpsor9l6u2dtuh2jdlik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
