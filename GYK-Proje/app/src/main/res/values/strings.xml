@@ -14,4 +14,22 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!--Sting of facebook-->
+    <string name="facebook_app_id">432950130435640</string>
+    <string name="fb_login_protocol_scheme">fb432950130435640</string>
+    <string name="title_activity_facebook">FacebookActivity</string>
+    <string name="title_activity_custom_tab">CustomTabActivity</string>
+
+    <!--String of xml layout-->
+    <string name="email_text">ornek@ornek.com</string>
+    <string name="phone_number">0(555)555-55-55</string>
+    <string name="adress_text">adresinizi girin </string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="daily">Günlük</string>
+    <string name="current">Sabit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

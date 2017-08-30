@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         fUser = mAuth.getCurrentUser();
 
         if(fUser !=null){
-            Intent i = new Intent(getApplicationContext(),HelpListActivity.class);
-            startActivity(i);
+
         }
 
         //if(fUser null değilse anasayfadan devam et diyeceğiz)
@@ -56,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Intent in = new Intent(getApplicationContext(), HelpListActivity.class);
-                                    startActivity(in);
+
                                 }
 
                                 // If sign in fails, display a message to the user. If sign in succeeds

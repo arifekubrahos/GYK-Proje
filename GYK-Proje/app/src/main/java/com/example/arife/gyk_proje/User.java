@@ -7,11 +7,18 @@ package com.example.arife.gyk_proje;
 public class User {
     private String name;
     private String mail;
-    //privvate String image; resim ekledeğimizde koyacağız
+    private String image;
 
     public User() {
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     public void setName(String name) {
         this.name = name;
     }
