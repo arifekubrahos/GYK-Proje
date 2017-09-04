@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,13 +21,13 @@ import java.util.List;
  * Created by Arife on 29.08.2017.
  */
 
-public class RecyclerCurrentAdapter extends RecyclerView.Adapter<RecyclerCurrentAdapter.MyViewHolder>{
+public class IlanAdapter extends RecyclerView.Adapter<IlanAdapter.MyViewHolder>{
 
     private List<Announcements> currentList;
     private LayoutInflater inflater;
 
     //consturcture veritabından aldığımız listeyi atmamız için
-    public RecyclerCurrentAdapter(List<Announcements> currentList){
+    public IlanAdapter(List<Announcements> currentList){
         this.currentList = currentList;
     }
 
@@ -34,24 +35,27 @@ public class RecyclerCurrentAdapter extends RecyclerView.Adapter<RecyclerCurrent
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView img;
-        private TextView contentText, descText, mailText, phoneText,addressText;
+        private TextView contentText, descText, mailText, phoneText,addressText,nameText;
         private CardView cardView;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.image);
+            nameText =itemView.findViewById(R.id.namehelpText);
             contentText =itemView.findViewById(R.id.contenthelpText);
             descText =itemView.findViewById(R.id.deschelpText);
             mailText =itemView.findViewById(R.id.mailhelpText);
             phoneText = itemView.findViewById(R.id.phonehelpText);
             addressText =itemView.findViewById(R.id.addresshelpText);
             cardView = itemView.findViewById(R.id.cardView);
+
         }
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activitiy_nohelp_card,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activitiy_ilan_card,parent,false);
 
         return new MyViewHolder(v);
     }
@@ -69,19 +73,20 @@ public class RecyclerCurrentAdapter extends RecyclerView.Adapter<RecyclerCurrent
 
         holder.contentText.setText(ann.getContent());
         holder.descText.setText(ann.getDescription());
+        holder.nameText.setText(ann.getName());
 
         if(ann.getEmail() == null)
             holder.mailText.setVisibility(View.INVISIBLE);
         else
-            holder.mailText.setText(ann.getEmail());
+            holder.mailText.setText("Mail:    "+ann.getEmail());
         if(ann.getAddress() == null)
             holder.addressText.setVisibility(View.INVISIBLE);
         else
-            holder.addressText.setText(ann.getAddress());
+            holder.addressText.setText("Adres:   "+ann.getAddress());
         if(ann.getPhone() == null)
             holder.phoneText.setVisibility(View.INVISIBLE);
         else
-            holder.phoneText.setText(ann.getPhone());
+            holder.phoneText.setText("Telefon: "+ann.getPhone());
 
         new DownloadImage(holder.img).execute(String.valueOf(ann.getPhotoUrl()));
 

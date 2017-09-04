@@ -2,86 +2,58 @@ package com.example.arife.gyk_proje;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Button;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText emailText;
-    private EditText passwordText;
-    private Button logInButton;
-    private Button signUpButton1;
+    private Toolbar cToolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private PageAdapter adapter;
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser fUser;
-    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_main_page);
+        cToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(cToolbar);
 
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        emailText = (EditText) findViewById(R.id.emailText);
-        passwordText = (EditText) findViewById(R.id.passwordText);
-        logInButton = (Button) findViewById(R.id.logInButton);
-        signUpButton1 = (Button) findViewById(R.id.signUpButton1);
+        adapter= new PageAdapter(getSupportFragmentManager());
+        adapter.addFragment(new Default(),"Günlük");
+        adapter.addFragment(new IlanFragment(),"İlanlar");
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_up,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-        mAuth = FirebaseAuth.getInstance();
-        fUser = mAuth.getCurrentUser();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.profile_page:
+                Intent i = new Intent(getApplicationContext(),UserProfileActivity.class);
+                startActivity(i);
+                finish();
+                break;
+            case R.id.search:
 
-        if(fUser !=null){
-
+                break;
         }
 
-        //if(fUser null değilse anasayfadan devam et diyeceğiz)
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signInWithEmailAndPassword(emailText.getText().toString(), passwordText.getText().toString())
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-
-                                }
-
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Log.d( "signInWithEmail:failed", task.getException().toString());
-                                    Toast.makeText(MainActivity.this, "signInWithEmail:failed",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-
-
-                            }
-                        });
-
-            }
-
-        });
-
-        signUpButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,SignUpActivity.class);
-                startActivity(i);
-            }
-        });
+        return super.onOptionsItemSelected(item);
     }
-    //location ekliyoruz !!
 }

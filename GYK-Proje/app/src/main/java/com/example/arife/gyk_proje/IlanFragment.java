@@ -1,18 +1,19 @@
 package com.example.arife.gyk_proje;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,30 +30,85 @@ import java.util.List;
  * Created by Arife on 29.08.2017.
  */
 
-public class CurrentActivity extends AppCompatActivity{
+public class IlanFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
-    private Toolbar cToolbar;
-    private Toolbar bToolbar;
-    private FloatingActionButton newCurrentButton;
+    private FloatingActionButton CurrentButton;
 
     private DatabaseReference mDatabaseReference;
     private FirebaseUser mUser;
     private List<Announcements> currentList =new ArrayList<Announcements>();
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("AAA","oncreateView");
+        View view = inflater.inflate(R.layout.activity_ilan_recycler, container, false);
+
+
+        CurrentButton = view.findViewById(R.id.CurrentButton);
+        CurrentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),IlanCreateActivity.class);
+                startActivity(i);
+            }
+        });
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Sabitler");
+        currentList.add(new Announcements());
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        recyclerView =  view.findViewById(R.id.currentRecyclerView);
+        //düz bir şekilde sıralanması için
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        //adapterumüz listemizi burada atıyoruz
+        adapter = new IlanAdapter(currentList);
+        recyclerView.setAdapter(adapter);
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentList.clear();
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    currentList.add(ds.getValue(Announcements.class));
+
+                    Announcements announcements = ds.getValue(Announcements.class);
+                    String userId = announcements.getuId();
+                    if(userId.equals(mUser.getUid())){
+                        Log.d("BBB", userId + ":" + mUser.getUid());
+                       // CurrentButton.setEnabled(false);
+                        CurrentButton.setVisibility(View.GONE);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        return view;
+
+        //return super.onCreateView(inflater, container, savedInstanceState);
+    }
+    /*
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_current);
+        setContentView(R.layout.activity_ilan_recycler);
 
         cToolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(cToolbar);
-
-        bToolbar = (Toolbar) findViewById(R.id.tool_bar_bottom);
 
 
         newCurrentButton = (FloatingActionButton) findViewById(R.id.newCurrentButton);
@@ -85,7 +141,7 @@ public class CurrentActivity extends AppCompatActivity{
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         //adapterumüz listemizi burada atıyoruz
-        adapter = new RecyclerCurrentAdapter(currentList);
+        adapter = new IlanAdapter(currentList);
         recyclerView.setAdapter(adapter);
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -108,7 +164,7 @@ public class CurrentActivity extends AppCompatActivity{
             newCurrentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(getApplicationContext(),CreateCurrentActivity.class);
+                    Intent i = new Intent(getApplicationContext(),IlanCreateActivity.class);
                     startActivity(i);
 
                 }
@@ -133,5 +189,5 @@ public class CurrentActivity extends AppCompatActivity{
        }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

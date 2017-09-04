@@ -30,6 +30,10 @@
     <string name="daily">Günlük</string>
     <string name="current">Sabit</string>
 
+    <string name="email">Mail:</string>
+    <string name="phone">Telefon:</string>
+    <string name="address">Adres:</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

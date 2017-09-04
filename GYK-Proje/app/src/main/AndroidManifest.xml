@@ -40,7 +40,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".FacebookActivity"
             android:label="@string/title_activity_facebook"
@@ -53,8 +52,8 @@
 
         </activity>
         <activity android:name=".UserProfileActivity" />
-        <activity android:name=".CurrentActivity"></activity>
-        <activity android:name=".CreateCurrentActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".IlanCreateActivity"></activity>
 
     </application>
 

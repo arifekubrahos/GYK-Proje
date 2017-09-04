@@ -129,7 +129,7 @@ public class FacebookActivity extends AppCompatActivity {
             newUser.setImage(user.getPhotoUrl().toString());
             mDatabaseReferance.child(user.getUid()).setValue(newUser);
 
-            Intent i = new Intent(getApplicationContext(),CurrentActivity.class);
+            Intent i = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(i);
             finish();
         }
