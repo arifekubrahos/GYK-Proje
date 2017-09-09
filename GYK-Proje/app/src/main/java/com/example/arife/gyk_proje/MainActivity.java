@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         adapter= new PageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Default(),"Günlük");
+        adapter.addFragment(new DailyFragment(),"Günlük");
         adapter.addFragment(new IlanFragment(),"İlanlar");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
