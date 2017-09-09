@@ -8,7 +8,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,15 +34,26 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private TextView nameText;
     private TextView mailText;
-    private Button goFaceButton;
-    private Button listButton;
+    //private Button goFaceButton;
+    private Button postListButton;
     private Button signOutButton;
     private ImageView imageView;
+
+    private Toolbar btoolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+
+
+        btoolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(btoolbar);
+
+        if(getSupportActionBar() !=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         imageView = (ImageView) findViewById(R.id.imageView);
         nameText = (TextView) findViewById(R.id.nameText);
@@ -48,8 +61,8 @@ public class UserProfileActivity extends AppCompatActivity {
         signOutButton = (Button) findViewById(R.id.signOutButton);
 
         //burası kişi profiline gitme olucak ona sonra bakıcaz
-        goFaceButton = (Button) findViewById(R.id.goFaceButton);
-        listButton = (Button) findViewById(R.id.listButton);
+        //goFaceButton = (Button) findViewById(R.id.goFaceButton);
+        postListButton = (Button) findViewById(R.id.postListButton);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         if(mUser != null){
@@ -65,8 +78,14 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logOut();
-                Intent i = new Intent(getApplicationContext(), FacebookActivity.class);
-                startActivity(i);
+                finish();
+            }
+        });
+
+        postListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),PostActivity.class));
                 finish();
             }
         });
@@ -91,5 +110,13 @@ public class UserProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             imageView.setImageBitmap(result);
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

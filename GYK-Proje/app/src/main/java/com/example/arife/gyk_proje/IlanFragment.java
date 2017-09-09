@@ -42,6 +42,7 @@ public class IlanFragment extends Fragment{
     private FirebaseUser mUser;
     private List<Announcements> currentList =new ArrayList<Announcements>();
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,8 +82,7 @@ public class IlanFragment extends Fragment{
                     Announcements announcements = ds.getValue(Announcements.class);
                     String userId = announcements.getuId();
                     if(userId.equals(mUser.getUid())){
-                        Log.d("BBB", userId + ":" + mUser.getUid());
-                       // CurrentButton.setEnabled(false);
+                        CurrentButton.setEnabled(false);
                         CurrentButton.setVisibility(View.GONE);
                     }
                 }
@@ -100,6 +100,7 @@ public class IlanFragment extends Fragment{
 
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
+
     /*
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override

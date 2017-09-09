@@ -4,6 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -32,10 +35,10 @@
         android:textColor="@color/com_facebook_button_background_color" />
 
     <Button
-        android:id="@+id/listButton"
+        android:id="@+id/postListButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Listesini Gör" />
+        android:text="Gönderilerini Gör" />
 
     <Button
         android:id="@+id/signOutButton"

@@ -138,7 +138,7 @@ public class IlanCreateActivity extends AppCompatActivity {
 
                     mDatabaseReference.push().setValue(announcements);
 
-                    Intent in = new Intent(getApplicationContext(),IlanFragment.class);
+                    Intent in = new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(in);
                 }
                 else{
